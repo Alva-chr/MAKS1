@@ -37,10 +37,13 @@ for j in range(len(r2)):
     for i in range(1,1600):
         x_current = x[0][j]
         y_current = y[0][j]
+
         x_next = (1-epsilon)*r1*x_current*(1-x_current)+epsilon*r2[j]*y_current*(1-y_current)
         y_next = (1-epsilon)*r2[j]*y_current*(1-y_current)+epsilon*r1*x_current*(1-x_current)
+
         x[0][j] = x_next
         y[0][j] = y_next 
+        
         if (i>1000):
             if (x_next not in x_plot):
                 x_plot.append(x_next)
