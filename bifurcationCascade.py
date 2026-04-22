@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 #Setting variables given from project description
 r1 = 3.1
 epsilon = 0.3
-r_num = 1000
+r_num = 30000
 r2 = np.linspace(2.8,3.97,r_num)
 
 x_plot = []
@@ -24,11 +24,25 @@ y_next = 0
 plt.figure()
 plt.xlabel('$r_2$',fontsize = 25)
 plt.ylabel('x',fontsize = 25)
-plt.title("Bifurcation diagram of logistic map", fontsize = 25)
+plt.title("Bifurcation diagram of the coupled system", fontsize = 25)
+
+ax = plt.gca();
+
+ax.text(
+    0.02, 0.98,
+    rf"{30000:d} parameter values" "\n"
+    rf"{1000:d} transient iterates" "\n"
+    rf"{600:d} recorded iterates" "\n"
+    rf"set epsilon to {0.3:f} " "\n",
+    transform = ax.transAxes,
+    ha = 'left',
+    va = 'top',
+    bbox = dict(facecolor = 'white', alpha = 0.88, edgecolor = 'none')
+  )
 
 ax = plt.gca()
 ax.set_xlim([2.7, 4])
-ax.set_ylim([0, 1])
+ax.set_ylim([0.35, 0.85])
 
 for j in range(len(r2)):
     print(str(round(100*j/len(r2), 1)) + "%")
