@@ -21,6 +21,7 @@ y_current = 0
 x_next = 0
 y_next = 0
 
+#Setting up the envoirment for plotting
 plt.figure()
 plt.xlabel('$r_2$',fontsize = 25)
 plt.ylabel('x',fontsize = 25)
@@ -44,27 +45,36 @@ ax = plt.gca()
 ax.set_xlim([2.7, 4])
 ax.set_ylim([0.35, 0.85])
 
+#Looping through the diffrent values of r_2
 for j in range(len(r2)):
+    #printing progress
     print(str(round(100*j/len(r2), 1)) + "%")
     x_plot = []
     r_plot = []
+
     for i in range(1,1600):
         x_current = x[0][j]
         y_current = y[0][j]
 
+        #Applying the logistic updates
         x_next = (1-epsilon)*r1*x_current*(1-x_current)+epsilon*r2[j]*y_current*(1-y_current)
         y_next = (1-epsilon)*r2[j]*y_current*(1-y_current)+epsilon*r1*x_current*(1-x_current)
 
         x[0][j] = x_next
         y[0][j] = y_next 
         
+        #Letting the system evolve before we start to save the data to plot
         if (i>1000):
+            #Only saving the data we have not plotted so we do not have to go through
+            #all the same points as the x values will be periodic if it is stable
+            #for the given value of r2
             if (x_next not in x_plot):
                 x_plot.append(x_next)
                 r_plot.append(r2[j])
             else:
                 break
 
+    #plotting the found values
     plt.scatter(r_plot, x_plot, color='black', marker = ',', lw=0, s=1)
     
 plt.grid()
